@@ -1,0 +1,24 @@
+<app-page-title title="registro"></app-page-title>
+<div class="main-layout max-w-sm py-16 my-8 bg-indigo-200 rounded-md">
+<form class="flex flex-col" (ngSubmit)="onRegister()" #registerForm="ngForm">
+    <div class="flex-1">
+        <mat-form-field class="w-full">
+            <mat-label>Nombre</mat-label>
+            <input required name="nombre" matInput placeholder="Ej: Mario Fernandéz" [formControl]="nombreValidation">
+            <mat-error *ngIf="nombreValidation.hasError('required')">Este campo es obligatorio</mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-full">
+            <mat-label>Email</mat-label>
+            <input required type="email" name="email" matInput placeholder="Ej: mario_f99@mail.com" [formControl]="emailValidation">
+            <mat-error *ngIf="emailValidation.hasError('email') && !emailValidation.hasError('required')">Tiene que ser un email válido</mat-error>
+            <mat-error *ngIf="emailValidation.hasError('required')">Este campo es obligatorio</mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-full">
+            <mat-label>contraseña</mat-label>
+            <input required type="password" name="contrasena" matInput [formControl]="contrasenaValidation">
+            <mat-error *ngIf="contrasenaValidation.hasError('required')">Este campo es obligatorio</mat-error>
+        </mat-form-field>
+    </div>
+    <button class="mt-16" type="submit" mat-raised-button color="accent">Registrarse</button>
+</form>
+</div>

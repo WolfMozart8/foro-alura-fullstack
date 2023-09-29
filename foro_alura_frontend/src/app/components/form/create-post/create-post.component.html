@@ -1,0 +1,50 @@
+<app-page-title title="nuevo post"></app-page-title>
+<form class="main-layout flex flex-col" (ngSubmit)="onSubmit()" #myForm="ngForm">
+
+    <mat-form-field class="w-full">
+        <mat-label>Titulo</mat-label>
+        <input required name="titulo" matInput placeholder="Me aparece un error al compilar" [(ngModel)]="newPost.titulo">
+    </mat-form-field>
+
+    <mat-form-field class="w-full md:w-1/2">
+        <mat-label>Seleccionar categoria</mat-label>
+        <mat-select required [(ngModel)]="newPost.curso_id" name="curso_id">
+            <mat-option disabled label="--"></mat-option>
+            <mat-option *ngFor="let curso of cursosList" [value]="curso.id">{{curso.categoria}} - {{curso.nombre}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <!-- <mat-form-field class="w-full md:w-1/2">
+        <mat-label>Seleccionar categoria</mat-label>
+        <select required matNativeControl [(ngModel)]="newPost.curso_id" name="curso_id">
+            <option disabled label="--"></option>
+            <option *ngFor="let curso of cursosList" [value]="curso.id">{{curso.nombre}} - {{curso.categoria}}</option>
+        </select>
+    </mat-form-field> -->
+
+    <mat-form-field class="w-full">
+        <mat-label>Mensaje</mat-label>
+        <textarea required name="mensaje" matInput placeholder="Cuando ejecuto el programa..." cols="30" rows="10" [(ngModel)]="newPost.mensaje"></textarea>
+    </mat-form-field>
+    <!-- <div class="flex flex-col">
+        <label for="title">Titulo</label>
+        <input type="text" id="title" name="titulo" [(ngModel)]="newPost.titulo">
+    </div>
+    <div class="flex flex-col">
+        <label for="message">Mensaje</label>
+        <textarea name="mensaje" id="message" cols="30" rows="10" [(ngModel)]="newPost.mensaje"></textarea>
+    </div> -->
+
+    <!-- <mat-form-field>
+        <mat-label>Selecciona categoria</mat-label>
+        <mat-select name="cursoasdd">
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let curso of cursosList">
+                {{curso.nombre}} - {{curso.categoria}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field> -->
+
+
+    <!--TODO: hacer validacion de boton-->
+    <button class="w-full md:w-auto ml-auto" color="primary" type="submit" mat-raised-button >Enviar</button>
+</form>

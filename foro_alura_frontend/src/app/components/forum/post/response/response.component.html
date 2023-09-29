@@ -1,0 +1,10 @@
+<div class="flex gap-3 justify-between min-h-[150px] relative p-5 bg-slate-100 rounded-md md:min-h-[200px]"
+*ngFor="let response of respuestas">
+<p class="flex-1">{{response.mensaje}}</p>
+<div class="border-l-2 w-[30%] px-4 flex flex-col items-center justify-center">
+    <div>
+        <mat-icon class="mat-icon-size" fontIcon="account_circle"></mat-icon>
+    </div>
+    <h2>{{response.autor}}</h2>
+</div>
+</div>

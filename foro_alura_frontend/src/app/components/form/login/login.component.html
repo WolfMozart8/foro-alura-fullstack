@@ -1,0 +1,20 @@
+<app-page-title title="login"></app-page-title>
+<div *ngIf="!isValidForm" class="text-center font-bold text-warn">Nombre o contraseña incorrectos</div>
+
+<div class="main-layout max-w-md py-16 my-8 bg-indigo-200 rounded-md">
+<form class="flex flex-col" (ngSubmit)="onLogin()" #loginForm="ngForm">
+    <div class="flex-1">
+        <mat-form-field class="w-full">
+            <mat-label>Nombre</mat-label>
+            <input required name="nombre" matInput placeholder="Ej: Mario Fernandéz" [(ngModel)]="userLogin.nombre">
+            <mat-error *ngIf="requiredFormControl.hasError('required')">tienes que ingresar un nombre</mat-error>
+        </mat-form-field>
+    <mat-form-field class="w-full mt-3">
+        <mat-label>contraseña</mat-label>
+        <input required type="password" name="contrasena" matInput [(ngModel)]="userLogin.contrasena">
+        <mat-error *ngIf="requiredFormControl.hasError('required')">tienes que ingresar una contraseña</mat-error>
+    </mat-form-field>
+    </div>
+    <button class="mt-16" type="submit" mat-raised-button color="accent">Ingresar</button>
+</form>
+</div>

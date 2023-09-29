@@ -1,0 +1,32 @@
+<mat-toolbar color="primary" class="md:px-6">
+    <mat-toolbar-row class="flex justify-between">
+        <a (click)="menuOn = false" class="z-20" routerLink="/">Foro</a>
+
+        <div class="md:hidden">
+            <button (click)="menuOn = !menuOn">
+                <mat-icon *ngIf="!menuOn; else closeIcon" fontIcon="menu"></mat-icon>
+                <ng-template #closeIcon>
+                    <mat-icon fontIcon="close"></mat-icon>
+                </ng-template>
+            </button>
+
+        </div>
+
+
+            <nav class="bg-primary md:hidden text-xl absolute top-0 left-0 h-[100vh] flex flex-col items-center justify-center z-10" [ngClass]="menuOn ? 'translate-x-0' : '-translate-x-4'" *ngIf="menuOn">
+        <ul class="flex flex-col w-[50vw] gap-3 justify-center items-center">
+            <li (click)="menuOn = false"><a routerLink="/"><mat-icon fontIcon="home"></mat-icon> inicio</a></li>
+            <li *ngIf="!isLoggedIn" (click)="menuOn = false"><a routerLink="/login">iniciar sesion</a></li>
+            <li *ngIf="!isLoggedIn" (click)="menuOn = false"><a routerLink="/register">registrarse</a></li>
+            <li *ngIf="isLoggedIn" (click)="menuOn = false"><a (click)="logout()" href="#"><mat-icon fontIcon="logout"></mat-icon> Salir</a></li>
+        </ul>
+    </nav>
+    <nav class="hidden md:block">
+        <ul class="flex gap-3">
+            <li *ngIf="!isLoggedIn"><a routerLink="/login">iniciar sesion</a></li>
+            <li *ngIf="!isLoggedIn"><a routerLink="/register">registrarse</a></li>
+            <li *ngIf="isLoggedIn" ><a (click)="logout()" href="#"><mat-icon fontIcon="logout"></mat-icon> Salir</a></li>
+        </ul>
+    </nav>
+    </mat-toolbar-row>
+</mat-toolbar>

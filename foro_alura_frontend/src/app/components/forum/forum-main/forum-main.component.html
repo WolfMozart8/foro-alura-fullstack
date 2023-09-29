@@ -1,0 +1,10 @@
+<main class="main-layout">
+
+    <div class="mb-8 flex justify-end">
+        <button (click)="onCreatePost()" class="w-full md:w-auto" mat-raised-button color="primary">Crea tu post</button>
+    </div>
+    <app-forum-list [currentPage]="currentPage"></app-forum-list>
+
+<mat-paginator showFirstLastButtons="true" [hidePageSize]="true" [length]="totalElements" [pageSizeOptions]="[pageSize]" (page)="handlePageEvent($event)" aria-label="Select page">
+</mat-paginator>
+</main>

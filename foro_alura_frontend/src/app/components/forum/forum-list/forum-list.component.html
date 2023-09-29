@@ -1,0 +1,39 @@
+<section class="flex flex-col gap-4 mb-5">
+
+    <div class="flex flex-col items-center justify-center border pr-5 py-5 bg-slate-100 rounded-md min-h-[300px] px-24" *ngIf="postsList.length === 0 || postsList === null; else showlist">
+        <mat-spinner *ngIf="!isFetched; else noconnection"></mat-spinner>
+        <ng-template #noconnection>
+            <p class="text-2xl">No se pudo establecer una conexión con el servidor</p>
+        </ng-template>
+    </div>
+
+    <ng-template #showlist>
+        <div class="relative flex flex-col md:flex-row gap-3 border pl-16 pr-4 py-5 bg-slate-100 rounded-md md:min-h-[200px] md:px-24"
+            *ngFor="let post of postsList">
+            <div [ngClass]="statusColor(post.statusTopico)"
+                class="absolute top-0 left-0 h-[100%] w-12 md:w-16 rounded-tl-md rounded-bl-md flex justify-center items-center">
+                <p class="m-auto rotate-[270deg]">{{post.statusTopico | noUnderscore}}</p>
+            </div>
+            <div class="flex-1 flex flex-col justify-between">
+                <h2 class="text-xl hover:text-blue-900 hover:bg-slate-200 cursor-pointer bg-slate-50 p-3 rounded-md"
+                    (click)="irAlPost(post.id)">{{post.titulo}}</h2>
+                <div class="bg-green-400 w-fit p-1 rounded-md">{{post.curso}}</div>
+            </div>
+            <div class="flex justify-evenly md:gap-4">
+                <div class="flex flex-col justify-center items-center text-gray-500">
+                    <div>{{post.respuestas.length}}</div>
+                    <div>respuestas</div>
+                </div>
+                <div class="flex flex-col justify-center items-center text-xs">
+                    <div>
+                        <mat-icon class="mat-icon-size" fontIcon="account_circle"></mat-icon>
+                    </div>
+                    <div>
+                        <div>{{post.autor}}</div>
+                        <p class="hidden md:block">{{post.fecha | date}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</section>

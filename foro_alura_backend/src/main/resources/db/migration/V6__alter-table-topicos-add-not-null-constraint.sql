@@ -1,0 +1,5 @@
+ALTER TABLE topicos
+MODIFY autor_id BIGINT NOT NULL;
+
+ALTER TABLE topicos
+MODIFY curso_id BIGINT NOT NULL;
