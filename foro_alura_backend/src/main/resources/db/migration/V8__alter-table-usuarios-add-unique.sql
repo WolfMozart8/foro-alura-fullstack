@@ -1,7 +1,0 @@
-ALTER TABLE usuarios
-MODIFY
-nombre VARCHAR(50) UNIQUE;
-
-ALTER TABLE usuarios
-MODIFY
-email VARCHAR(50) UNIQUE;
