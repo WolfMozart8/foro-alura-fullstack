@@ -1,0 +1,3 @@
+[submodule "foro_alura_backend"]
+	path = foro_alura_backend
+	url = git@github.com:WolfMozart8/alura-foro.git
