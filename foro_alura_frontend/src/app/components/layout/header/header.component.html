@@ -12,21 +12,35 @@
 
         </div>
 
+        <!-- desktop nav -->
+        <nav class="hidden md:block">
+            <ul class="flex gap-3">
+                <!-- logged -->
+                <li *ngIf="isLoggedIn"><a [routerLink]="['/user', loggedUserId]"><mat-icon
+                            fontIcon="account_circle"></mat-icon>Perfil</a></li>
+                <li *ngIf="isLoggedIn"><a (click)="logout()" href="#"><mat-icon fontIcon="logout"></mat-icon> Salir</a>
+                </li>
+                <!-- not logged -->
+                <li *ngIf="!isLoggedIn"><a routerLink="/login">iniciar sesion</a></li>
+                <li *ngIf="!isLoggedIn"><a routerLink="/register">registrarse</a></li>
+            </ul>
+        </nav>
 
-            <nav class="bg-primary md:hidden text-xl absolute top-0 left-0 h-[100vh] flex flex-col items-center justify-center z-10" [ngClass]="menuOn ? 'translate-x-0' : '-translate-x-4'" *ngIf="menuOn">
-        <ul class="flex flex-col w-[50vw] gap-3 justify-center items-center">
-            <li (click)="menuOn = false"><a routerLink="/"><mat-icon fontIcon="home"></mat-icon> inicio</a></li>
-            <li *ngIf="!isLoggedIn" (click)="menuOn = false"><a routerLink="/login">iniciar sesion</a></li>
-            <li *ngIf="!isLoggedIn" (click)="menuOn = false"><a routerLink="/register">registrarse</a></li>
-            <li *ngIf="isLoggedIn" (click)="menuOn = false"><a (click)="logout()" href="#"><mat-icon fontIcon="logout"></mat-icon> Salir</a></li>
-        </ul>
-    </nav>
-    <nav class="hidden md:block">
-        <ul class="flex gap-3">
-            <li *ngIf="!isLoggedIn"><a routerLink="/login">iniciar sesion</a></li>
-            <li *ngIf="!isLoggedIn"><a routerLink="/register">registrarse</a></li>
-            <li *ngIf="isLoggedIn" ><a (click)="logout()" href="#"><mat-icon fontIcon="logout"></mat-icon> Salir</a></li>
-        </ul>
-    </nav>
+        <!-- mobile menu -->
+        <nav class="bg-primary md:hidden text-xl absolute top-0 left-0 h-[100vh] flex flex-col items-center justify-center z-10"
+            [ngClass]="menuOn ? 'translate-x-0' : '-translate-x-4'" *ngIf="menuOn">
+            <ul class="flex flex-col w-[50vw] gap-3 justify-center items-center">
+                <li (click)="menuOn = false"><a routerLink="/"><mat-icon fontIcon="home"></mat-icon> inicio</a></li>
+                <!-- logged -->
+                <!-- TODO: must navigate to user profile -->
+                <li *ngIf="isLoggedIn" (click)="menuOn = false"><a [routerLink]="['/user', loggedUserId]"><mat-icon
+                            fontIcon="account_circle"></mat-icon>Perfil</a></li>
+                <li *ngIf="isLoggedIn" (click)="menuOn = false"><a (click)="logout()" href="#"><mat-icon
+                            fontIcon="logout"></mat-icon> Salir</a></li>
+                <!-- not logged -->
+                <li *ngIf="!isLoggedIn" (click)="menuOn = false"><a routerLink="/login">iniciar sesion</a></li>
+                <li *ngIf="!isLoggedIn" (click)="menuOn = false"><a routerLink="/register">registrarse</a></li>
+            </ul>
+        </nav>
     </mat-toolbar-row>
 </mat-toolbar>

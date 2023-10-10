@@ -17,13 +17,20 @@ import { StorageService } from 'src/app/services/storage.service';
 export class PostComponent implements OnInit {
   isFetched: boolean = false;
   isOwner: boolean = false;
+  IsLoggedUserResponse: boolean = false;
   isEditing: boolean = false;
+  isEditingResponse: boolean = false;
   isDeleting: boolean = false;
+  isDeletingResponse: boolean = false;
   isSolved: boolean = false;
+
+  loggedUserId: number = 0;
 
   editedPost: PostEdit = {
     id: 0,
   };
+
+  editedResponseMessage: string = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -49,6 +56,7 @@ export class PostComponent implements OnInit {
           this.editedPost.titulo = data.titulo;
           this.editedPost.mensaje = data.mensaje;
           const ownerId = this.storageService.getUser().usuario_id;
+          this.loggedUserId = this.storageService.getUser().usuario_id;
           this.postMain = data;
 
           this.isSolved = data.respuestas.some((post: PostResponse) => post.solucion === true);
@@ -91,10 +99,34 @@ export class PostComponent implements OnInit {
 
     }
   }
+  onEditResponse(responseMessage: string) {
+    this.isDeletingResponse = false;
+    this.isEditingResponse = !this.isEditingResponse;
+    this.editedResponseMessage = responseMessage;
+  }
+
+  editPostResponse(response: PostResponse, message: string){
+    if(response.autor_id === this.loggedUserId){
+
+      const responseEdit: EditResponse = {
+          id: response.id,
+          mensaje: message
+      }
+      this.responseService.editResponse(responseEdit, this.storageService.getUser().jwtToken)
+      .subscribe({
+        next: data => console.log(data),
+        error: error => console.error(error)
+      })
+
+      this.isEditingResponse = false;
+      this.reloadPage();
+
+    }
+  }
 
   onDelete() {
-    this.isEditing = false;
-    this.isDeleting = !this.isDeleting;
+    this.isEditingResponse = false;
+    this.isDeletingResponse = !this.isDeletingResponse;
   }
 
   deletePost() {
@@ -107,6 +139,22 @@ export class PostComponent implements OnInit {
         this.routeNavigate.navigate(["/"]);
     }
   }
+
+  onDeleteResponse() {
+    this.isEditingResponse = false;
+    this.isDeleting = !this.isDeleting;
+  }
+
+  deletePostResponse(response: PostResponse) {
+    if (response.autor_id === this.loggedUserId) {
+      this.responseService.deleteResponse(response.id, this.storageService.getUser().jwtToken).subscribe({
+        next: data => console.log(data),
+        error: error => console.error(error)
+      })
+
+      this.reloadPage();
+  }
+}
 
   // openDialog(){
   //   this.dialog.open();

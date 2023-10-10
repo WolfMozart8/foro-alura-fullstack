@@ -6,7 +6,7 @@
     <div class="flex-1">
         <mat-form-field class="w-full">
             <mat-label>Nombre</mat-label>
-            <input required name="nombre" matInput placeholder="Ej: Mario Fernandéz" [(ngModel)]="userLogin.nombre">
+            <input required name="nombre" matInput placeholder="Ej: Mario Fernandéz" [(ngModel)]="userLogin.usuario">
             <mat-error *ngIf="requiredFormControl.hasError('required')">tienes que ingresar un nombre</mat-error>
         </mat-form-field>
     <mat-form-field class="w-full mt-3">

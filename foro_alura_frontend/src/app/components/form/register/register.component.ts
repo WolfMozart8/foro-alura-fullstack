@@ -11,12 +11,13 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
+  usuarioValidation = new FormControl('', [Validators.required]);
   nombreValidation = new FormControl('', [Validators.required]);
   emailValidation = new FormControl('', [
     Validators.required,
     Validators.email,
   ]);
-  contrasenaValidation = new FormControl('', [Validators.required]);
+  contrasenaValidation = new FormControl('', [Validators.required, Validators.minLength(6)]);
 
   // userRegister: UserRegister = {
   //   nombre: "",
@@ -32,14 +33,14 @@ export class RegisterComponent {
 
   onRegister() {
     const userRegister: UserRegister = {
+      usuario: this.usuarioValidation.value,
       nombre: this.nombreValidation.value,
       email: this.emailValidation.value,
       contrasena: this.contrasenaValidation.value,
     };
 
     this.userService.userRegister(userRegister).subscribe({
-      next: (data) => {
-        console.log(data);
+      next: () => {
         this.openSnackBar("Te has registrado exitosamente");
         this.route.navigate(["/login"]);
       },

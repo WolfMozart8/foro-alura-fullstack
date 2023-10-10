@@ -15,7 +15,7 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginComponent implements OnInit {
 
   userLogin: UserLogin = {
-    nombre: '',
+    usuario: '',
     contrasena: '',
   };
 
@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
+        this.storageService.setLogIn();
         // this.roles = this.storageService.getUser().roles;
         this.route.navigate(["/"]);
         this.openSnackBar("Login exitoso");
@@ -67,6 +68,6 @@ export class LoginComponent implements OnInit {
   }
 
   openSnackBar(message: string) {
-    this._snackBar.open(message, "OK");
+    this._snackBar.open(message, "OK", {duration: 4000});
   }
 }

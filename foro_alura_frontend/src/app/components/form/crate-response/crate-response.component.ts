@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CreateResponse } from 'src/app/models/post-response';
 import { ResponseService } from 'src/app/services/response.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -13,14 +14,17 @@ export class CrateResponseComponent implements OnInit {
   userId: number = 0;
   @Input() postId: number = 0;
 
+  isLoggedIn: boolean = false;
+
   constructor(
     private storageService: StorageService,
     private responseService: ResponseService,
-    private storateService: StorageService
+    private route: Router
   ) {}
 
   ngOnInit(): void {
     this.userId = this.storageService.getUser().usuario_id;
+    this.isLoggedIn = this.storageService.isLoggedIn();
   }
 
   onNewResponse() {
@@ -44,6 +48,8 @@ export class CrateResponseComponent implements OnInit {
           },
           error: (error) => console.error(error),
         });
+    } else {
+      this.route.navigate(["/login"]);
     }
   }
 

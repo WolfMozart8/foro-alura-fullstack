@@ -1,5 +1,6 @@
 export interface PostResponse {
     id: number,
+    autor_id: number,
     autor: string,
     fechaCreacion: Date,
     solucion: boolean,

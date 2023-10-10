@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserLogin, UserRegister } from '../models/User';
+import { UserData, UserLogin, UserRegister } from '../models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ export class UserService {
   // private token: string | null = null;
 
   private urlLogin = 'http://localhost:8080/login';
-  private urlRegister = 'http://localhost:8080/usuarios';
+  private urlUsers = 'http://localhost:8080/usuarios';
 
   // private loginHeader = new HttpHeaders()
   //   .set('Content-Type', 'application/json')
@@ -24,6 +24,10 @@ export class UserService {
   }
 
   userRegister(user: UserRegister): Observable<any> {
-    return this.http.post(this.urlRegister, user);
+    return this.http.post(this.urlUsers, user);
+  }
+
+  getUserData(id: number): Observable<any>{
+    return this.http.get(this.urlUsers + "/" + id);
   }
 }

@@ -32,4 +32,17 @@ export class ResponseService {
       }
     });
   }
+
+  deleteResponse(
+    responseId: number,
+    bearerToken: string
+  ): Observable<any> {
+      return this.http.delete(
+        this.baseUrl + "/" + responseId, {
+          headers: {
+            "Authorization": bearerToken
+          }
+        })
+  }
+
 }

@@ -1,0 +1,16 @@
+<div *ngIf="user" class="main-layout text-4xl bg-indigo-50 h-full my-6">
+    <div class="flex flex-col items-center text-center">
+        <mat-icon class="mat-icon-size" fontIcon="account_circle"></mat-icon>
+        <h1 class="mb-10">{{user.nombre}}</h1>
+    </div>
+    <div class="flex gap-12 w-full justify-center bg-gray-400 rounded-md">
+        <div class="flex flex-col items-center">
+            <h2>Posts</h2>
+            {{user.topicos.length}}
+        </div>
+        <div class="flex flex-col items-center">
+            <h2>Respuestas</h2>
+            {{user.respuestas?.length}}
+        </div>
+    </div>
+</div>

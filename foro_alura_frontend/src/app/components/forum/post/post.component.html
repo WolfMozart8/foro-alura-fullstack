@@ -74,6 +74,7 @@
 
             </div>
             <!-- <app-response [respuestas]="postMain.respuestas"></app-response> -->
+            <!-- TODO: make diferent design for owner responses -->
             <mat-divider></mat-divider>
             <div class="main-layout py-6"
                 *ngIf="postMain.respuestas.length === 0 || postMain.respuestas == null; else respuestas">
@@ -84,8 +85,30 @@
                     class="flex flex-col md:flex-row gap-3 justify-between min-h-[150px] relative p-5 rounded-md md:min-h-[200px]"
                     [ngClass]="response.solucion ? 'bg-green-200' : 'bg-slate-100'"
                     *ngFor="let response of postMain.respuestas">
+                    <!-- menu -->
+                    <div *ngIf="loggedUserId === response.autor_id" class="absolute top-0 right-0">
+                        <button mat-icon-button [matMenuTriggerFor]="menuResponse">
+                            <mat-icon fontIcon="more_vert"></mat-icon>
+                        </button>
+                        <mat-menu xPosition="before" #menuResponse="matMenu">
+                            <button (click)="onEditResponse(response.mensaje)" mat-menu-item>
+                                <mat-icon fontIcon="edit"></mat-icon>
+                                <span>editar</span>
+                            </button>
+                            <button (click)="onDelete()" mat-menu-item>
+                                <mat-icon color="warn" fontIcon="delete"></mat-icon>
+                                <span>eliminar</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+
                     <div class="order-2 md:order-1 w-full flex flex-col">
-                        <p class="flex-1">{{response.mensaje}}</p>
+                        <textarea *ngIf="isEditingResponse; else originalResponse" cols="30" rows="10" [(ngModel)]="editedResponseMessage"></textarea>
+                        <ng-template #originalResponse>
+                            <p class="flex-1">{{response.mensaje}}</p>
+                        </ng-template>
+
+
                         <button (click)="solutionResponse(response)" *ngIf="isOwner && !isSolved" class="self-end"
                             mat-flat-button>Marcar como solución</button>
                         <button (click)="solutionResponse(response)" *ngIf="isOwner && isSolved && response.solucion"
@@ -97,6 +120,22 @@
                         </div>
                         <h2>{{response.autor}}</h2>
                         <p>{{response.fechaCreacion | date}}</p>
+                    </div>
+
+                    <div class="flex justify-end" *ngIf="isEditingResponse">
+                        <button (click)="editPostResponse(response, editedResponseMessage)" class="m-4" mat-raised-button color="primary">Aceptar</button>
+                        <button (click)="isEditingResponse = false" class="m-4" mat-raised-button
+                            color="warn">Cancelar</button>
+                    </div>
+
+                    <div *ngIf="isDeletingResponse">
+                        <p class="text-center text-2xl font-bold">¿Desea eliminar esta respuesta?</p>
+                        <div class="flex justify-center">
+                            <button (click)="deletePostResponse(response)" class="m-4" mat-raised-button
+                                color="warn">Eliminar</button>
+                            <button (click)="isDeletingResponse = false" class="m-4" mat-raised-button
+                                color="primary">Cancelar</button>
+                        </div>
                     </div>
                 </div>
             </ng-template>

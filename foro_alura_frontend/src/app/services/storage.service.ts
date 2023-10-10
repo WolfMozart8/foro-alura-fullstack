@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 const USER_KEY = "auth-user";
 
@@ -7,6 +8,8 @@ const USER_KEY = "auth-user";
 })
 export class StorageService {
 
+  private _isLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isLogged$: Observable<boolean> = this._isLogged.asObservable();
 
   constructor() { }
 
@@ -35,5 +38,12 @@ export class StorageService {
     }
 
     return false;
+  }
+
+  public setLogIn(): void{
+    this._isLogged.next(true);
+  }
+  public setLogOut(): void{
+    this._isLogged.next(false);
   }
 }

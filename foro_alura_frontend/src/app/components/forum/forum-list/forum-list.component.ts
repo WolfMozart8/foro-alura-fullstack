@@ -99,7 +99,6 @@ export class ForumListComponent implements OnInit, OnChanges{
     return postList.map(post => {
       if (post.respuestas.length != 0) {
         post.statusTopico = StatusPost.NO_SOLUCIONADO;
-        console.log("ah")
       }
       if (post.respuestas.length != 0 && post.respuestas.some(obj => obj.solucion === true)) {
         post.statusTopico = StatusPost.SOLUCIONADO;

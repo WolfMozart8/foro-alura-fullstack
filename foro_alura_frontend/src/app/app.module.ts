@@ -32,6 +32,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { CrateResponseComponent } from './components/form/crate-response/crate-response.component';
 import { MatDividerModule } from "@angular/material/divider";
 import { PageTitleComponent } from './components/layout/page-title/page-title.component';
+import { UserProfileComponent } from './components/users/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { PageTitleComponent } from './components/layout/page-title/page-title.co
     RegisterComponent,
     CrateResponseComponent,
     PageTitleComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 <div class="main-layout py-6 flex flex-col">
     <textarea class="w-full p-6" cols="30" rows="6" [(ngModel)]="message"></textarea>
-    <button (click)="onNewResponse()" class="self-end mt-4" mat-raised-button color="primary">responder</button>
+    <p *ngIf="!isLoggedIn" class="text-red-500">Inicia sesión para poder comentar</p>
+    <button [disabled]="!isLoggedIn" (click)="onNewResponse()" class="w-full md:w-auto self-end mt-4" mat-raised-button color="primary">responder</button>
 </div>
